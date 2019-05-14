@@ -1,0 +1,29 @@
+{
+  "scripts": {
+    "lint": "tslint -p .",
+    "build": "tsc -p .",
+    "start": "node dist/Index.js",
+    "prettify": "prettier --write src/**/*",
+    "dev": "yarn build && yarn start"
+  },
+  "dependencies": {
+    "@types/node": "^12.0.1",
+    "discord.js": "^11.5.0",
+    "husky": "^2.3.0",
+    "pg": "^7.11.0",
+    "typeorm": "^0.2.17",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "prettier": "^1.14.3",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint-config-standard": "^8.0.1",
+    "typescript": "^3.0.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn prettify"
+    }
+  }
+}
