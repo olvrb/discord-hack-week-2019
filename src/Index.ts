@@ -6,5 +6,6 @@ import { Logger } from "./Utils/Logger";
 Connect()
     .then(StartBot)
     .then((app) => {
-        Logger.info(`Bot started with ${app.users.size} users, tag: ${app.user.tag}`);
+        BindEventHandlers(app);
+        Logger.info(`Logged in as ${app.user.tag} with ${app.users.size} users.`);
     });
