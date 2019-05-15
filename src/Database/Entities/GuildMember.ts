@@ -10,6 +10,7 @@ export class GuildMember extends BaseEntity {
             member = new GuildMember();
             member.Id = discordMember.id;
             member.Guild = guild;
+            member.Warnpoints = 0;
         }
         return member.save();
     }
@@ -18,4 +19,12 @@ export class GuildMember extends BaseEntity {
 
     @ManyToOne((type) => Guild, (guild) => guild.Members)
     public Guild: Guild;
+
+    @Column()
+    private Warnpoints: number;
+
+    public Warn(amount: number): Promise<GuildMember> {
+        this.Warnpoints += amount;
+        return this.save();
+    }
 }

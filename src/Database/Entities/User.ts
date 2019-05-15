@@ -1,6 +1,7 @@
-import { Entity, BaseEntity, Column, ManyToMany, PrimaryColumn } from "typeorm";
+import { Entity, BaseEntity, Column, ManyToMany, PrimaryColumn, OneToMany } from "typeorm";
 import { User as DUser } from "discord.js";
 import { Guild } from "./Guild";
+import { Message } from "./Message";
 
 @Entity()
 export class User extends BaseEntity {
@@ -26,4 +27,7 @@ export class User extends BaseEntity {
 
     @ManyToMany((type) => Guild, (guild) => guild.Users)
     public Guilds: Guild[];
+
+    @OneToMany((type) => User, (user) => user.Messages)
+    public Messages: Message[];
 }
