@@ -7,10 +7,12 @@
     ],
     "jsRules": {},
     "rules": {
-        "ordered-imports": false,
+        "ordered-imports": true,
         "object-literal-sort-keys": false,
-        "no-console": false,
-        "interface-name": false
+        "no-console": true,
+        "interface-name": true,
+        "class-name": true,
+        "arrow-return-shorthand": true
     },
     "rulesDirectory": []
 }

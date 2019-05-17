@@ -1,5 +1,5 @@
-import { Entity, BaseEntity, PrimaryColumn, Column, ManyToMany, ManyToOne } from "typeorm";
 import { GuildMember as DGuildMember } from "discord.js";
+import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, PrimaryColumn } from "typeorm";
 import { Guild } from "./Guild";
 
 @Entity()

@@ -1,5 +1,5 @@
-import { createConnection } from "typeorm";
 import { join } from "path";
+import { createConnection } from "typeorm";
 import { Configuration } from "../Config";
 export async function Connect() {
     return createConnection({

@@ -24,7 +24,7 @@ export class Application extends Client {
      */
     private CommandDirectory: string;
 
-    constructor(options: DClientOptions) {
+    constructor(options: IDClientOptions) {
         super(options);
 
         // We don't care if it fails.
@@ -60,7 +60,7 @@ export class Application extends Client {
     }
 }
 
-interface DClientOptions extends ClientOptions {
+interface IDClientOptions extends ClientOptions {
     avatarUrl: string;
     commandDirectory: string;
     prefix: string;

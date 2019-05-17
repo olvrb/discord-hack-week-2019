@@ -8,13 +8,13 @@ export enum EmbedType {
     Warning
 }
 
-interface MessageEmbedField {
+interface IMessageEmbedField {
     name: string;
     value: string;
     inline?: boolean;
 }
 
-interface EmbedOptions extends RichEmbedOptions {
+interface IEmbedOptions extends RichEmbedOptions {
     title: string;
     description: string;
 }
@@ -22,12 +22,12 @@ interface EmbedOptions extends RichEmbedOptions {
 export class EmbedBuilder extends RichEmbed {
     public static EmbedType = EmbedType;
 
-    constructor(options: EmbedOptions) {
+    constructor(options: IEmbedOptions) {
         super(options);
         this.BuildDefaultEmbed(options.title, options.description);
     }
 
-    public BuildEmbed(options: { type: EmbedType; fields?: MessageEmbedField[] }) {
+    public BuildEmbed(options: { type: EmbedType; fields?: IMessageEmbedField[] }) {
         if (options.fields) {
             for (const field of options.fields) {
                 this.addField(field.name, field.value, field.inline);

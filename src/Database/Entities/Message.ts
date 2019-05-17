@@ -1,6 +1,6 @@
-import { Entity, BaseEntity, PrimaryColumn, Column, ManyToOne } from "typeorm";
-import { User } from "./User";
 import { Message as DMessage } from "discord.js";
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
+import { User } from "./User";
 
 @Entity()
 export class Message extends BaseEntity {

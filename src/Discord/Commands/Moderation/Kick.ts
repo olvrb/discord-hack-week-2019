@@ -10,7 +10,6 @@ export class Command implements IBaseCommand {
         return true;
     }
     public async Run(message: Message) {
-        console.log("running");
         const embed = new EmbedBuilder({
             title: "test",
             description: "test"
