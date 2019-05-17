@@ -1,6 +1,6 @@
-import { StartBot } from "./Discord/Index";
-import { BindEventHandlers } from "./Discord/Events/Index";
 import { Connect } from "./Database/Index";
+import { BindEventHandlers } from "./Discord/Events/Index";
+import { StartBot } from "./Discord/Index";
 import { Logger } from "./Utils/Logger";
 
 Connect()

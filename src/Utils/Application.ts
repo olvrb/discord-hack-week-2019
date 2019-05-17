@@ -1,35 +1,59 @@
 import { Client, ClientOptions } from "discord.js";
-import { Command } from "../Discord/Commands/Moderation/Kick";
-import { IBaseCommand } from "./BaseCommand";
 import readdirp from "readdirp";
+
+import { IBaseCommand } from "./BaseCommand";
+
 export class Application extends Client {
     constructor(options: DClientOptions) {
         super(options);
+
+        // We don't care if it fails.
+        try {
+            this.user.setAvatar(options.avatarUrl);
+        } catch {}
         this.CommandDirectory = options.commandDirectory;
         this.Prefix = options.prefix;
         this.Ready = false;
     }
 
-    public CommandDirectory: string;
+    /**
+     * @property {string} CommandDirectory - Where all commands are located
+     */
+    private CommandDirectory: string;
 
+    /**
+     * @property {IBaseCommand[]} Commands - Cache of all commands
+     */
     public Commands: IBaseCommand[];
 
+    /**
+     * @property {string} Prefix - Bot's prefix
+     */
     public Prefix: string;
 
+    /**
+     * @property {boolean} Ready - Whether or not the client is ready to execute commands
+     */
     public Ready: boolean;
 
+    /**
+     * @returns {Promise<void>}
+     */
     public async CacheCommands() {
-        const commands: IBaseCommand[] = [];
         for await (const file of readdirp(this.CommandDirectory, { fileFilter: (file) => file.basename.endsWith(".js") })) {
             if (file.path === "Index.js") continue;
             let { Command } = await import(file.fullPath);
-            commands.push(new Command());
+            this.Commands.push(new Command());
         }
-        this.Commands = commands;
         this.Ready = true;
     }
+
+    /**
+     *
+     * @param {string} name - command name (case insensitive)
+     */
     public GetCommandByName(name: string): IBaseCommand {
-        return this.Commands.filter((x) => x.Name === name)[0] || null;
+        return this.Commands.filter((x) => x.Name.toLowerCase() === name.toLowerCase())[0] || null;
     }
 }
 

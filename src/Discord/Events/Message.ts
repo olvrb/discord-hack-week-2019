@@ -1,10 +1,11 @@
 import { Message as DMessage } from "discord.js";
+
 import { Guild } from "../../Database/Entities/Guild";
-import { Logger } from "../../Utils/Logger";
 import { GuildMember } from "../../Database/Entities/GuildMember";
-import { User } from "../../Database/Entities/User";
 import { Message } from "../../Database/Entities/Message";
-import { ParseMessage, HandleMessage } from "../Commands/Index";
+import { User } from "../../Database/Entities/User";
+import { Logger } from "../../Utils/Logger";
+import { HandleMessage } from "../Commands/Index";
 import { getApp } from "../Index";
 
 export async function OnMessage(message: DMessage) {

@@ -1,4 +1,4 @@
-import Winston, { createLogger, transports, format } from "winston";
+import Winston, { createLogger, format, transports } from "winston";
 
 export const Logger = createLogger({
     transports: [new transports.Console()],

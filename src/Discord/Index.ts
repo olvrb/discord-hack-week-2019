@@ -1,6 +1,7 @@
+import { join } from "path";
+
 import { Configuration } from "../Config";
 import { Application } from "../Utils/Application";
-import { join } from "path";
 
 const App = new Application({
     avatarUrl: "",
@@ -9,7 +10,6 @@ const App = new Application({
 });
 
 export async function StartBot(): Promise<Application> {
-    console.log(App.CommandDirectory);
     App.CacheCommands();
 
     return App.login(Configuration.Bot.Token).then(() => App);

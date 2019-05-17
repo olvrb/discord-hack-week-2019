@@ -1,6 +1,6 @@
-import { RichEmbed } from "discord.js";
+import { RichEmbed, RichEmbedOptions } from "discord.js";
+
 import { getApp } from "../Discord/Index";
-import { join } from "path";
 
 export enum EmbedType {
     Info,
@@ -14,7 +14,16 @@ interface MessageEmbedField {
     inline?: boolean;
 }
 
+interface EmbedOptions extends RichEmbedOptions {
+    title: string;
+    description: string;
+}
+
 export class EmbedBuilder extends RichEmbed {
+    constructor(options: EmbedOptions) {
+        super(options);
+        this.BuildDefaultEmbed(options.title, options.description);
+    }
     public static EmbedType = EmbedType;
     private BuildDefaultEmbed(title: string, description: string) {
         this.setTitle(title)
@@ -23,27 +32,28 @@ export class EmbedBuilder extends RichEmbed {
             .setTimestamp();
         return this;
     }
-    private BuildInfoEmbed(title: string, description: string) {
-        this.BuildDefaultEmbed(title, description).setColor("BLUE");
+    private BuildInfoEmbed() {
+        this.setColor("BLUE");
         return this;
     }
-    private BuildErrorEmbed(title: string, description: string) {
-        this.BuildDefaultEmbed(title, description).setColor("RED");
+    private BuildErrorEmbed() {
+        this.setColor("RED");
+        return this;
     }
-    public BuildEmbed(opts: { title: string; description: string; type: EmbedType; fields?: MessageEmbedField[] }) {
-        if (opts.fields) {
-            for (const field of opts.fields) {
+    public BuildEmbed(options: { type: EmbedType; fields?: MessageEmbedField[] }) {
+        if (options.fields) {
+            for (const field of options.fields) {
                 this.addField(field.name, field.value, field.inline);
             }
         }
-        switch (opts.type) {
+        switch (options.type) {
             case EmbedType.Info: {
-                this.BuildInfoEmbed(opts.title, opts.description);
+                this.BuildInfoEmbed();
                 break;
             }
 
             case EmbedType.Error: {
-                this.BuildErrorEmbed(opts.title, opts.description);
+                this.BuildErrorEmbed();
                 break;
             }
 

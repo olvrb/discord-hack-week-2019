@@ -1,9 +1,6 @@
 import { Message } from "discord.js";
-import { Logger } from "../../Utils/Logger";
-import commander from "commander";
-import { IBaseCommand } from "../../Utils/BaseCommand";
+
 import { Application } from "../../Utils/Application";
-import readdirp from "readdirp";
 
 export function ParseMessage(message: Message, prefix: string): { commandName: string; args: string[]; startsWithPrefix: boolean } {
     const args = message.content
