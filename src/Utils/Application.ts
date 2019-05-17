@@ -42,12 +42,14 @@ export class Application extends Client {
      * @returns {Promise<void>}
      */
     public async CacheCommands() {
+        const commands: IBaseCommand[] = [];
         // tslint:disable-next-line
         for await (const file of readdirp(this.CommandDirectory, { fileFilter: (file) => file.basename.endsWith(".js") })) {
             if (file.path === "Index.js") continue;
             const { Command } = await import(file.fullPath);
-            this.Commands.push(new Command());
+            commands.push(new Command(this));
         }
+        this.Commands = commands;
         this.Ready = true;
     }
 

@@ -1,9 +1,9 @@
 import { Message } from "discord.js";
 
-import { IBaseCommand } from "../../../Utils/BaseCommand";
+import { BaseCommand, IBaseCommand } from "../../../Utils/BaseCommand";
 import { EmbedBuilder } from "../../../Utils/EmbedBuilder";
 
-export class Command implements IBaseCommand {
+export class Command extends BaseCommand implements IBaseCommand {
     public Name = "kick";
     public Description = "Kick a member.";
     public HasPermission(message: Message) {
@@ -12,7 +12,7 @@ export class Command implements IBaseCommand {
     public async Run(message: Message) {
         const embed = new EmbedBuilder({
             title: "test",
-            description: "test"
+            description: "test" + this.Application.user.username
         }).BuildEmbed({
             type: EmbedBuilder.EmbedType.Info
         });

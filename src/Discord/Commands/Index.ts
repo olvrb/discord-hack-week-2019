@@ -23,12 +23,11 @@ export async function HandleMessage(app: Application, message: Message) {
     if (message.author.bot) return;
 
     // Cache commands in case it was missed during startup.
-    if (!app.Ready) return message.reply("Not ready.");
-
     // Extract some info from the message
     const { commandName, args, startsWithPrefix } = ParseMessage(message, app.Prefix);
     if (!startsWithPrefix) return;
 
+    if (!app.Ready) return message.reply("please wait.");
     // Fetch command from cache.
     const command = app.GetCommandByName(commandName);
     if (!command) return;
