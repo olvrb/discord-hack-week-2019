@@ -3,6 +3,7 @@ import { BindEventHandlers } from "./Discord/Events/Index";
 import { StartBot } from "./Discord/Index";
 import { Logger } from "./Utils/Logger";
 
+// tslint:disable-next-line
 Connect()
     .then(StartBot)
     .then((app) => {

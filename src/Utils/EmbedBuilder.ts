@@ -20,26 +20,13 @@ interface EmbedOptions extends RichEmbedOptions {
 }
 
 export class EmbedBuilder extends RichEmbed {
+    public static EmbedType = EmbedType;
+
     constructor(options: EmbedOptions) {
         super(options);
         this.BuildDefaultEmbed(options.title, options.description);
     }
-    public static EmbedType = EmbedType;
-    private BuildDefaultEmbed(title: string, description: string) {
-        this.setTitle(title)
-            .setDescription(description)
-            .setFooter(getApp().user.tag, getApp().user.displayAvatarURL)
-            .setTimestamp();
-        return this;
-    }
-    private BuildInfoEmbed() {
-        this.setColor("BLUE");
-        return this;
-    }
-    private BuildErrorEmbed() {
-        this.setColor("RED");
-        return this;
-    }
+
     public BuildEmbed(options: { type: EmbedType; fields?: MessageEmbedField[] }) {
         if (options.fields) {
             for (const field of options.fields) {
@@ -60,6 +47,22 @@ export class EmbedBuilder extends RichEmbed {
             default:
                 break;
         }
+        return this;
+    }
+
+    private BuildDefaultEmbed(title: string, description: string) {
+        this.setTitle(title)
+            .setDescription(description)
+            .setFooter(getApp().user.tag, getApp().user.displayAvatarURL)
+            .setTimestamp();
+        return this;
+    }
+    private BuildInfoEmbed() {
+        this.setColor("BLUE");
+        return this;
+    }
+    private BuildErrorEmbed() {
+        this.setColor("RED");
         return this;
     }
 }

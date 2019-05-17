@@ -9,7 +9,7 @@ export class Command implements IBaseCommand {
     public HasPermission(message: Message) {
         return true;
     }
-    public Run(message: Message) {
+    public async Run(message: Message) {
         console.log("running");
         const embed = new EmbedBuilder({
             title: "test",
@@ -17,6 +17,6 @@ export class Command implements IBaseCommand {
         }).BuildEmbed({
             type: EmbedBuilder.EmbedType.Info
         });
-        message.channel.send(embed);
+        await message.channel.send(embed);
     }
 }

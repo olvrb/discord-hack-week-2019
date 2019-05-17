@@ -4,23 +4,6 @@ import readdirp from "readdirp";
 import { IBaseCommand } from "./BaseCommand";
 
 export class Application extends Client {
-    constructor(options: DClientOptions) {
-        super(options);
-
-        // We don't care if it fails.
-        try {
-            this.user.setAvatar(options.avatarUrl);
-        } catch {}
-        this.CommandDirectory = options.commandDirectory;
-        this.Prefix = options.prefix;
-        this.Ready = false;
-    }
-
-    /**
-     * @property {string} CommandDirectory - Where all commands are located
-     */
-    private CommandDirectory: string;
-
     /**
      * @property {IBaseCommand[]} Commands - Cache of all commands
      */
@@ -37,12 +20,32 @@ export class Application extends Client {
     public Ready: boolean;
 
     /**
+     * @property {string} CommandDirectory - Where all commands are located
+     */
+    private CommandDirectory: string;
+
+    constructor(options: DClientOptions) {
+        super(options);
+
+        // We don't care if it fails.
+        // tslint:disable
+        try {
+            this.user.setAvatar(options.avatarUrl);
+        } catch {}
+        // tslint:enable
+        this.CommandDirectory = options.commandDirectory;
+        this.Prefix = options.prefix;
+        this.Ready = false;
+    }
+
+    /**
      * @returns {Promise<void>}
      */
     public async CacheCommands() {
+        // tslint:disable-next-line
         for await (const file of readdirp(this.CommandDirectory, { fileFilter: (file) => file.basename.endsWith(".js") })) {
             if (file.path === "Index.js") continue;
-            let { Command } = await import(file.fullPath);
+            const { Command } = await import(file.fullPath);
             this.Commands.push(new Command());
         }
         this.Ready = true;

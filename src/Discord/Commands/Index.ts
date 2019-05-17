@@ -7,7 +7,7 @@ export function ParseMessage(message: Message, prefix: string): { commandName: s
         .slice(prefix.length)
         .trim()
         .split(" ");
-    let commandName = args.shift();
+    const commandName = args.shift();
 
     const startsWithPrefix = message.content.startsWith(prefix);
 

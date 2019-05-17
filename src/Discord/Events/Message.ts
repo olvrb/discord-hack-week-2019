@@ -23,5 +23,5 @@ export async function OnMessage(message: DMessage) {
         Logger.info(`Added or updated member ${dbMember.Id} to the database.`);
     }
 
-    HandleMessage(getApp(), message);
+    await HandleMessage(getApp(), message);
 }

@@ -1,6 +1,7 @@
 {
   "scripts": {
     "lint": "tslint -p .",
+    "lint-and-fix": "tslint -p . --fix",
     "build": "tsc -p .",
     "start": "node dist/Index.js",
     "prettify": "prettier --write src/**/*",

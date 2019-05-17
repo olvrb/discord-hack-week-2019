@@ -10,7 +10,7 @@ const App = new Application({
 });
 
 export async function StartBot(): Promise<Application> {
-    App.CacheCommands();
+    await App.CacheCommands();
 
     return App.login(Configuration.Bot.Token).then(() => App);
 }
