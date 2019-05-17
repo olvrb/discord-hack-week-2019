@@ -7,6 +7,7 @@ export class Application extends Client {
         super(options);
         this.CommandDirectory = options.commandDirectory;
         this.Prefix = options.prefix;
+        this.Ready = false;
     }
 
     public CommandDirectory: string;
@@ -14,6 +15,8 @@ export class Application extends Client {
     public Commands: IBaseCommand[];
 
     public Prefix: string;
+
+    public Ready: boolean;
 
     public async CacheCommands() {
         const commands: IBaseCommand[] = [];
@@ -23,12 +26,10 @@ export class Application extends Client {
             commands.push(new Command());
         }
         this.Commands = commands;
+        this.Ready = true;
     }
-    public GetCommandByName(name: string) {
-        for (const command of this.Commands) {
-            if (command.Name === name) return command;
-        }
-        return null;
+    public GetCommandByName(name: string): IBaseCommand {
+        return this.Commands.filter((x) => x.Name === name)[0] || null;
     }
 }
 

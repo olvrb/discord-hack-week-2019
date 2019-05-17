@@ -1,5 +1,6 @@
 import { IBaseCommand } from "../../../Utils/BaseCommand";
 import { Message } from "discord.js";
+import { EmbedBuilder, EmbedType } from "../../../Utils/EmbedBuilder";
 
 export class Command implements IBaseCommand {
     public Name = "kick";
@@ -9,7 +10,11 @@ export class Command implements IBaseCommand {
     }
     public Run(message: Message) {
         console.log("running");
-
-        message.channel.send("Kicked");
+        const embed = new EmbedBuilder().BuildEmbed({
+            description: "test",
+            title: "test",
+            type: EmbedBuilder.EmbedType.Info
+        });
+        message.channel.send(embed);
     }
 }
