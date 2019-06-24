@@ -2,6 +2,7 @@ import { Client, ClientOptions } from "discord.js";
 import readdirp from "readdirp";
 
 import { IBaseCommand } from "./BaseCommand";
+import { MusicPlayer } from "./MusicPlayer";
 
 export class Application extends Client {
     /**

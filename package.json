@@ -9,12 +9,17 @@
   },
   "dependencies": {
     "@types/node": "^12.0.1",
+    "csvtojson": "^2.0.8",
     "discord.js": "^11.5.0",
     "husky": "^2.3.0",
+    "node-fetch": "^2.6.0",
     "pg": "^7.11.0",
     "readdirp": "^3.0.1",
+    "request": "^2.88.0",
     "typeorm": "^0.2.17",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "yt-search": "^0.4.1",
+    "ytdl-core-discord": "^1.0.3"
   },
   "devDependencies": {
     "prettier": "^1.14.3",
