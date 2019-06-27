@@ -1,5 +1,5 @@
 # Discord hack week 2019
-### **Note:** This bot uses boilerplate code from another project, see [janet](https://github.com/janetbot/bot). To see all the code written during Discord hack week, see commits from the 24th to the 28th of june.
+### **Note:** This bot uses boilerplate code from another project, [janet](https://github.com/janetbot/bot). This was done to improve efficiency, to avoid wasting time rewriting a command handler. To see all the code written during Discord hack week, see commits from the 24th to the 28th of june.
 
 # About
 ## Base idea
