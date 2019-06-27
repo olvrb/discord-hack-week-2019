@@ -19,30 +19,50 @@ export class Command extends BaseCommand implements IBaseCommand {
         await message.channel.send("Starting music trivia. To win, guess either the song title or artist.");
 
         const player = new MusicPlayer({ channel: vc });
-        const connection = await player.Join();
+        await player.Join();
 
         const spotify = new SpotifyCharts();
-
         const track = await spotify.GetRandomOffCharts();
-        Logger.info(`now playing ${track.title} by ${track.artist}`);
-        search(`${track.title} ${track.artist}`, (err, result) => {
-            if (err) return;
-            const t = result.videos[0];
-            const formattedTitle = `${track.title} ${track.artist}`;
-            player.Play(t.url);
 
-            const collector = message.channel.createMessageCollector((msg) => true);
-            collector.on("collect", async (msg) => {
-                if (formattedTitle.toLowerCase().indexOf(msg.content.trim().toLowerCase()) > -1) {
-                    player.Stop();
-                    const member = await GuildMember.findOne({ where: { Id: msg.member.id } });
-                    if (!member) return;
-                    member.TriviaWins++;
-                    member.save();
-                    message.channel.send(`${msg.author} won, guessed right on https://youtube.com${t.url}`);
-                    collector.stop();
-                }
+        Logger.info(`now playing ${track.title} by ${track.artist}`);
+        const result = await this.SearchYouTube(`${track.title} ${track.artist}`);
+
+        const t = result.videos[0];
+        const formattedTitle = `${track.title} ${track.artist}`;
+
+        player.Play(t.url);
+
+        const collector = message.channel.createMessageCollector(() => true);
+        collector.on("collect", async (msg) => {
+            if (this.isRightGuess(formattedTitle, msg)) {
+                player.Stop();
+                const member = await GuildMember.findOne({ where: { Id: msg.member.id } });
+                if (!member) return;
+                member.TriviaWins++;
+                member.save();
+                message.channel.send(`${msg.author} won, guessed right on https://youtube.com${t.url}`);
+                collector.stop();
+            }
+        });
+    }
+
+    private async SearchYouTube(keyword: string): Promise<IYouTubeResult> {
+        return new Promise((resolve, reject) => {
+            search(keyword, (err, res: IYouTubeResult) => {
+                if (err) return reject(err);
+                else return resolve(res);
             });
         });
     }
+    private isRightGuess(formattedTitle: string, msg: Message) {
+        return formattedTitle.toLowerCase().indexOf(msg.content.trim().toLowerCase()) > -1;
+    }
+}
+
+interface IYouTubeResult {
+    videos: IYouTubeVideo[];
+}
+
+interface IYouTubeVideo {
+    url: string;
 }
