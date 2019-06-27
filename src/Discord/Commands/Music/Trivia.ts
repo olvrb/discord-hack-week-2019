@@ -16,7 +16,7 @@ export class Command extends BaseCommand implements IBaseCommand {
     public async Run(message: Message) {
         const vc = message.member.voiceChannel;
         if (!vc) return message.channel.send("user not in vc");
-        await message.channel.send("Starting music trivia...");
+        await message.channel.send("Starting music trivia. To win, guess either the song title or artist.");
 
         const player = new MusicPlayer({ channel: vc });
         const connection = await player.Join();
@@ -40,6 +40,7 @@ export class Command extends BaseCommand implements IBaseCommand {
                     member.TriviaWins++;
                     member.save();
                     message.channel.send(`${msg.author} won, guessed right on https://youtube.com${t.url}`);
+                    collector.stop();
                 }
             });
         });
