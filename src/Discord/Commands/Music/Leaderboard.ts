@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
+
 import { GuildMember } from "../../../Database/Entities/GuildMember";
-import { User } from "../../../Database/Entities/User";
 import { BaseCommand, IBaseCommand } from "../../../Utils/BaseCommand";
 
 export class Command extends BaseCommand implements IBaseCommand {

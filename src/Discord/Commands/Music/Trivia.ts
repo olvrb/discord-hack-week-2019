@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import { CollectorFilter, Message, VoiceChannel } from "discord.js";
 import search from "yt-search";
 
 import { GuildMember } from "../../../Database/Entities/GuildMember";
@@ -10,6 +10,7 @@ import { SpotifyCharts } from "../../../Utils/SpotifyCharts";
 export class Command extends BaseCommand implements IBaseCommand {
     public Name = "trivia";
     public Description = "Start trivia.";
+
     public HasPermission(message: Message) {
         return true;
     }
@@ -28,13 +29,13 @@ export class Command extends BaseCommand implements IBaseCommand {
         const result = await this.SearchYouTube(`${track.title} ${track.artist}`);
 
         const t = result.videos[0];
-        const formattedTitle = `${track.title} ${track.artist}`;
+        const answer = `${track.title} ${track.artist}`;
 
         player.Play(t.url);
 
-        const collector = message.channel.createMessageCollector(() => true);
+        const collector = message.channel.createMessageCollector(this.userIsInVC(vc));
         collector.on("collect", async (msg) => {
-            if (this.isRightGuess(formattedTitle, msg)) {
+            if (this.isRightGuess(answer, msg)) {
                 player.Stop();
                 const member = await GuildMember.findOne({ where: { Id: msg.member.id } });
                 if (!member) return;
@@ -46,6 +47,10 @@ export class Command extends BaseCommand implements IBaseCommand {
         });
     }
 
+    private userIsInVC(vc: VoiceChannel): CollectorFilter {
+        return (msg: Message) => vc.members.some((x) => x.id === msg.author.id);
+    }
+
     private async SearchYouTube(keyword: string): Promise<IYouTubeResult> {
         return new Promise((resolve, reject) => {
             search(keyword, (err, res: IYouTubeResult) => {
@@ -54,8 +59,8 @@ export class Command extends BaseCommand implements IBaseCommand {
             });
         });
     }
-    private isRightGuess(formattedTitle: string, msg: Message) {
-        return formattedTitle.toLowerCase().indexOf(msg.content.trim().toLowerCase()) > -1;
+    private isRightGuess(answer: string, msg: Message) {
+        return answer.toLowerCase().indexOf(msg.content.trim().toLowerCase()) > -1;
     }
 }
 
