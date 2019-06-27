@@ -1,5 +1,8 @@
 # Discord hack week 2019
-### **Note:** This bot uses boilerplate code from another project, [janet](https://github.com/janetbot/bot). This was done to improve efficiency, to avoid wasting time rewriting a command handler. To see all the code written during Discord hack week, see commits from the 24th to the 28th of june.
+### **Note:** This bot uses boilerplate command-handling code from another project, [janet](https://github.com/janetbot/bot). This was done to improve efficiency, to avoid wasting time rewriting a command handler. To see all the code written during Discord hack week, see commits from the 24th to the 28th of june.
+### Talking to some people in the official Discord server, they said that reusing old code was prohibited, and defeated the whole point of the hack week. However, I don't believe that is the case here. The code I'm reusing is purely command-handling related, and I do not see how that is any different from using an open source library such as discord.js-commando, or Klasa. The complete source of my command-handling is available, open-source, [here](https://github.com/janetbot/bot).
+
+### The only difference between this, and Klasa, is the fact that it isn't packaged and distributed as an NPM module.
 
 # About
 ## Base idea
