@@ -11,6 +11,7 @@ export class GuildMember extends BaseEntity {
             member.Id = discordMember.id;
             member.Guild = guild;
             member.Warnpoints = 0;
+            member.TriviaWins = 0;
         }
         return member.save();
     }
@@ -19,6 +20,9 @@ export class GuildMember extends BaseEntity {
 
     @ManyToOne((type) => Guild, (guild) => guild.Members)
     public Guild: Guild;
+
+    @Column()
+    public TriviaWins: number;
 
     @Column()
     private Warnpoints: number;

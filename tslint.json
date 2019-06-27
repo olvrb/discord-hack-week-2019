@@ -12,7 +12,8 @@
         "no-console": true,
         "interface-name": true,
         "class-name": true,
-        "arrow-return-shorthand": true
+        "arrow-return-shorthand": true,
+        "no-floating-promises": false
     },
     "rulesDirectory": []
 }
